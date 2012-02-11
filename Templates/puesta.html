@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include "global_includes.html" %}
+
+    <title>Teatro Perú &mdash; {{ puesta.obra.titulo }}</title>
+    <meta content="">
+    
+  </head>
+  <body>
+    {% include "top_menu.html" %}
+
+    <a href="/crear_puesta/">Crear Obra</a>
+    <p>_
+
+    <h1 class="header">Título{{ puesta.obra.titulo }}</h1>
+    <p><img class="perfil" src="{{ puesta.perfil.path.url }}">
+    <p>Teatro:<a href="/plaza/{{puesta.plaza.id}}">{{puesta.plaza.nombre}}</a>
+    <p>Dirección:{{puesta.plaza.direccion}}
+    <p>Map URL:<a href="{{puesta.plaza.map_link}}">{{puesta.plaza.map_link}}</a>
+
+    
+    <h1 class="header">Sumilla</h1>
+    <p>{{ puesta.sumilla }}
+
+    <h1 class="header">Reseñas</h1>
+    {% for reseña in puesta.reviews.all %}
+      <p>{{reseña.rating}}
+      {% if reseña.url %}
+        <p><a href="{{reseña.url}}">{{reseña.titulo}}</a>
+      {% else %}
+        <p><a href="/reseña/{{reseña.id}}">{{reseña.titulo}}</a>
+      {% endif %}
+      <p>{{reseña.text}}
+      <p class="autor">por: {{reseña.autor}} en {{reseña.fecha}}
+    {% endfor %}
+
+    <h1 class="header">Cast</h1>
+    {% for miembro in puesta.elenco.all %}
+    <p class="castmember"><span class="left-element">{{ miembro.role }}</span>:<span class="right-element">{{ miembro.nombre }} {{ miembro.apellido }}</span></p>
+    {% endfor %}
+
+    <h1 class="header">Entrevistas</h1>
+    {% for entrevista in entrevistas %}
+      <p>{{entrevista.text}}
+      <p>Realizada por {{entrevista.autor}} en {{entrevista.fecha}}
+    {% endfor %}
+
+    <h1 class="header">Material Audiovisual</h1>
+    {% for m in puesta.media.all %}    
+        {% if m.f_type == "IMG" %}
+            <img class="av-media" src="{{m.path.url}}" />
+        {% else %}{% if media.type == "VID" %}
+            <video class="av-media" src="{{m.path.url}}"></video>
+        {% endif %}{% endif %}
+    {% endfor %}
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<head>
+    {% include "global_includes.html" %}
+    <title>Teatro Perú &mdash; La Cartelera</title>
+</head>
+  
+<body>
+
+{% include "top_menu.html" %}
+<table class="cartelera" caption="cartelera">
+    <tr>
+        <th scope="row">
+        {% for mes in meses %}
+          <th colspan="{{ mes.size }}" class="{% cycle "mes-par" "mes-impar" %}"> {{ mes.name }}
+        {% endfor %}
+    </tr>
+    <tr>
+        <th scope="row">Plaza
+        {% for dia in dias %}
+            <th class="{% cycle "dia-par" "dia-impar" %}"><a href="/{{ dia.ano }}/{{ dia.mes }}/{{ dia.dia }}">{{ dia.dia }}</a>
+        {% endfor %}
+    </tr>
+    {% for obra in obras %}
+        <tr>
+            <th scope="row"> {{ obra.plaza }}
+        {% if obra.prev_space != 0 %}
+            <td class="empty-space" colspan="{{ obra.prev_space }}">
+        {% endif %}
+            <td colspan="{{ obra.width }}" class="obra"> <a href="/puesta_en_escena/{{ obra.puesta_id }}">{{ obra.titulo }}</a>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>

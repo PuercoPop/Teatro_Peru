@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="media/main.css">
+    <script src="jquery-1.6.4.js"></script>
+    <title>{{ elenco.nombre }} {{ elenco.apellido }} &ndash; {{ elenco.role }}</title>
+    <meta content="">
+</head>
+<body>
+
+    {% spaceless %}
+        <div>
+        <h1 class="header">{{ elenco.nombre }} {{ elenco.apellido }}</h1>
+            <span> (Y) : {{ elenco.rating.like}} (N) : {{ elenco.rating.dislike}} </span>
+        </div>
+    {% endspaceless %}
+    <h2 class="subheader">{{ elenco.role }}</h2>
+
+    {% if elenco.perfil %}
+        <img src="{{ MEDIA_URL }}/{{elenco.perfil.path}}" class="portrait">
+    {% else %}
+        <img src="{{ MEDIA_URL }}/NOPORTRAIT.jpg" class="portrait" />
+    {% endif %}
+    <p>nombre: {{ elenco.nombre }}</p>
+    <p>apellido: {{ elenco.apellido }}</p>
+    {% if elenco.formacion %}
+        <p>Formación: {{ elenco.formacion }}</p>
+    {% endif %}
+    {% if elenco.telefono %}
+        <p>número: {{ elenco.telefono }} </p>
+    {% endif %}
+    {% if elenco.movil %}
+        <p>número: {{ elenco.movil }} </p>
+    {% endif %}
+    {% if elenco.reviews %}
+        <h1 class="header">Reseñas</h1>
+        {% for review in elenco.reviews.all %}
+            <p> {{ review.text }}
+            <p> Por: {{ review.autor }} En: {{ review.fecha }}
+        {% endfor %}
+    {% endif %}
+
+    <h1 class="header">Obras</h1>
+
+    <p> Query
+
+    <h1 class="header">Material Audiovusual</h1>
+
+    <p>Hay que hacer el Query a los que este relacion
+
+  </body>

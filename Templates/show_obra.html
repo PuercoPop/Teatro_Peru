@@ -1,0 +1,11 @@
+{% spaceless %}
+{% if obras %}
+<p>No sera una de estas obras?:
+{% endif %}
+{% for obra in obras %}
+<li><input type="radio" id="{{obra.titulo}}-{{obra.autor}}" onclick="select_obra(this)"><label for="{{obra.titulo}}-{{obra.autor}}">{{obra.titulo}} escrita por {{obra.autor}}</li>
+{% endfor %}
+{% if obras %}
+<li><input type="button" id="clear-obra" value="X" onclick="clear_obra()"><label for="clear-obra">No, ninguna.</label></<li>
+{% endif %}
+{% endspaceless %}

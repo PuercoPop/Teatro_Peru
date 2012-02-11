@@ -1,0 +1,22 @@
+
+
+{% if user.is_authenticated %}
+
+        <span id="login">
+                <span> Bienvenido, {{ user }}.</span>
+                <a href="/logout/?url={{ request.get_full_path }}"> Logout </a>
+        </span>
+
+{% else %}
+
+        <span id="login">
+                <a href="{% url la_facebook_login %}?next={{ request.get_full_path }}" >
+                        <img src="http://static.ak.fbcdn.net/images/fbconnect/login-buttons/connect_light_medium_long.gif" />
+                </a> |
+                <a href="/login/">Login</a> |
+                <a href="/create_user/">Sign Up</a>
+        </span>
+
+{% endif %}
+
+

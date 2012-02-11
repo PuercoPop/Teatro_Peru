@@ -1,0 +1,28 @@
+
+
+
+
+* TODO List [0%]
+- [ ] HTML [0%]
+  - [ ] Cartelera.html
+  - [ ] Cartelera_dia.html
+  - [ ] Obra.html
+  - [ ] Puesta.html
+  - [ ] Actor.html
+  - [ ] Crear_obra.html
+  - [ ] Crear_puesta.html [%]
+    - [ ] Ajax
+  - [ ] Crear_actor.html
+  - [ ] Crear_actor.html
+  - [ ] Crear_usuario.html
+
+- [ ] Models [0%]
+  - [ ] Obra
+  - [ ] Puesta
+  - [ ] Reseña
+  - [ ] Rating
+  - [ ] 
+
+- [ ] Views [0%]
+  - [ ] Crear Puesta
+  - [ ] Crear Usuario

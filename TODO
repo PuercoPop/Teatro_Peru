@@ -1,0 +1,27 @@
+Prototype Checklist
+-------------------
+Cartelera X
+Obra
+Reseña
+CastMember
+
+ISSUES
+
+URL
+---
+
+Models
+------
+-Fix Slug Enconding
+
+Cartelera
+---------
+-Fix issue with month name being to large at the end of the month
+-Add Alpha to represent days
+-Add Views by date
+-Add Sorting: by_price, by_season_length, by_ending_first, by Theatre
+-Exhibir minimo 3-5 días de un mes.
+
+Cartelera por Fecha
+------------------
+-Localizar la fecha en el título

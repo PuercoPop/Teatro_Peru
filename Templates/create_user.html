@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<head>
+    {% include "global_includes.html" %}
+    <title> Crear Usuario </title>
+</head>
+
+<body>
+
+    {% include "top_menu.html" %}
+
+    
+    <form id="create-user" method="POST" action="." >
+    
+        <p><label for="username">Username :</label>
+            <input type="text" name="username" id="username">
+        
+        <p><label for="password">Password :</label>
+            <input type="password" name="password" id="password">
+
+        <p><fieldset>
+            <legend>Profile Picture</legend>
+            <p><img src="empty_protrait.png">
+            <p><input type="file" name="" id="" accept="image/png, image/jpg, image/jpeg, image/gif">
+        </fieldset>
+        
+        <p><label for="first_name">Nombre :</label>
+            <input type="text" name="first_name" id="first_name">
+        
+        <p><label for="">Apellido :</label>
+            <input type="text" name="" id="">
+        
+
+        <p><label for="email">Correo :</label>
+            <input type="text" name="email" id="email">
+            <fieldset>    
+                <li><label for="email-1"><input id="email-1" name="email" value="hidden" type="radio">Ocultar en el Perfil</label>
+                <li><label for="email-2"><input id="email-2" name="email" value="public" type="radio">Mostrar en el Perfil</label>
+            </fieldset>
+        
+
+        <p><label for="phone">Telefono :</label>
+            <input type="text" name="phone" id="phone">
+            <fieldset>
+                <li><label for="phone-1"><input id="phone-1" name="phone" value="hidden" type="radio">Ocultar en el Perfil</label>
+                <li><label for="phone-2"><input id="phone-2" name="phone" value="public" type="radio">Mostrar en el Perfil</label>
+            </fieldset>
+        
+        <p><input type="submit" value="Crear Usuario">
+            <input type="reset" value="Limpiar Formulario">
+    </form>
+    
+
+</body>

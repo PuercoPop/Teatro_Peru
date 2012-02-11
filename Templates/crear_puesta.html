@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block local-scripts %}
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}static/crear_puesta.css">
+  <script src="{{ MEDIA_URL }}static/crear_puesta.js" ></script>
+{% endblock %}
+
+{% block title %}Crear Obra{% endblock %}
+
+{% block main-content %}
+  <form action="." method="POST">{% csrf_token %}
+    <!--
+	Minimos: Titulo, Lugar, Fecha, Hora
+      -->
+    <div class="sub-header">¿Qué Obra?</div>
+    <li class="required"><label for="titulo">Título:</label><input id="titulo" type="text"></li>
+    <div id="obra-related">
+    </div>
+    <input id="profile-pic" type="file">
+    <li><label for="sumilla">Sumilla:</label>
+    <li><textarea id="sumilla" rows="3" ></textarea></li>
+
+    <div class="sub-header">¿Dónde?</div>
+    <li><label for="plaza">Teatro:</label><input id="plaza" type="text">
+    <li><label for="address">Dirección:</label><input id="address" type="text"></li>
+    <div class="sub-header">¿Cuándo?</div>
+    <li><label for"temporada-start">Inicio de Temporada:</label><input id="temporada-start" type="text"></li>
+    <li><label for="temporada-end">Fin de Temporada:</label><input id="temporada-end"type="text"></li>
+
+    <div class="sub-header">¿Cuánto?</div>
+    <p>Entradas:</p>
+    <li><label for="entrada-tipo">Tipo de Entrada:</label><input id="entrada-tipo" type="text"><label for="entrada-costo">Costo</label><input id="entrada-costo" type="text"><input value="Agregar" id="agregar-entrada" type="button"></li>
+    <div id="entradas-info">
+    </div>
+    
+    <div class="sub-header">¿Con Quiénes?</div>
+    <p>Elenco:</p>
+    <li><label for="elenco-posicion">Posicion</label><input id="elenco-posicion" type="text"><label for="elenco-nombre">Nombre</label><input id="elenco-nombre" type="text"><input value="Agregar" id="agregar-elenco" type="button"></li>
+    <div id="elenco-info">
+    </div>
+    <div id="elenco-related">
+    </div>
+    <br>
+    <input type="submit" value="Crear Puesta">
+
+{% endblock %}
