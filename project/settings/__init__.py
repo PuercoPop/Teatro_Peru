@@ -1,10 +1,14 @@
-# Django settings for Teatro_Peru project.
+# -*- coding: utf-8 -*-
+#Django settings for Teatro_Peru project.
+from os.path import dirname, join, realpath
+
+ROOT_DIR = realpath(join(dirname(__file__), '..', '..'))
+PROJECT_DIR = realpath(join(dirname(__file__), '..'))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
     ('Javier Olaechea','pirata@gmail.com'),
 )
 
@@ -13,7 +17,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'Teatro_Peru',                      # Or path to database file if using sqlite3.
+        'NAME': 'teatro_peru',                      # Or path to database file if using sqlite3.
         'USER': 'pirata',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -46,7 +50,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = '/home/pirata/Data/Teatro_Peru/media'
+MEDIA_ROOT = join( ROOT_DIR, 'media' )
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -57,9 +61,8 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/pirata/Data/Teatro_Peru/static'
+STATIC_ROOT = join( ROOT_DIR, 'static' )
               
-
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
@@ -103,14 +106,14 @@ MIDDLEWARE_CLASSES = (
     #User Added
 )
 
-ROOT_URLCONF = 'Teatro_Peru.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     #'/home/pirata/Data/Teatro_Peru/MockUps',
-    '/home/pirata/Data/Teatro_Peru/Templates',
+    join( ROOT_DIR, 'templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -118,6 +121,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
+    'django.core.context_processors.static',
     "django.core.context_processors.request",
 )
 
@@ -127,13 +131,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    #'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     #User Added
-    'portal',
+    'teatro_peru',
     'south',
     #'social_auth',
     'la_facebook',

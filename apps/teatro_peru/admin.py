@@ -1,7 +1,7 @@
 # coding=utf8
 
 from django.contrib import admin
-from portal.models import Horario,Entrada, Obra, Plaza, PuestaEnEscena, CastMember, Rating, Review, AVField
+from teatro_peru.models import Horario,Entrada, Obra, Plaza, PuestaEnEscena, CastMember, Rating, Review, AVField
 
 admin.site.register(Horario)
 admin.site.register(Entrada)

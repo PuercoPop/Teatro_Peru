@@ -1,4 +1,6 @@
 #!/usr/bin/env python2
+import sys
+from os.path import join
 from django.core.management import execute_manager
 import imp
 try:
@@ -9,6 +11,7 @@ except ImportError:
     sys.exit(1)
 
 import settings
+sys.path.insert(0, join(settings.ROOT_DIR, 'apps'))
 
 if __name__ == "__main__":
     execute_manager(settings)

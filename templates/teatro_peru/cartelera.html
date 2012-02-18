@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-
-<head>
-    {% include "global_includes.html" %}
-    <title>Teatro Perú &mdash; La Cartelera</title>
-</head>
-  
-<body>
-
-{% include "top_menu.html" %}
+{% extends "layouts/base.html" %}
+{% block title %}Teatro Perú &mdash; La Cartelera {% endblock %}
+{% block content %}
 <table class="cartelera" caption="cartelera">
     <tr>
         <th scope="row">
@@ -31,5 +24,4 @@
         </tr>
     {% endfor %}
 </table>
-
-</body>
+{% endblock %}

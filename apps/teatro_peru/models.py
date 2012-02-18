@@ -1,18 +1,18 @@
-# coding=utf8
+# -*- coding:utf-8 -*-
 from django.contrib.auth.models import User
 from django.db import models
 
-DAY_CHOICES = ( 
-  (u'L', u'Lunes'),
-  (u'M', u'Martes'),
-  (u'X', u'Miércoles'),
-  (u'J', u'Jueves'),
-  (u'V', u'Viernes'),
-  (u'S', 'Sábado'),
-  (u'D', 'Domingo')
-  )
 
 class Horario(models.Model):
+    DAY_CHOICES = ( 
+            (u'L', u'Lunes'),
+            (u'M', u'Martes'),
+            (u'X', u'Miércoles'),
+            (u'J', u'Jueves'),
+            (u'V', u'Viernes'),
+            (u'S', 'Sábado'),
+            (u'D', 'Domingo')
+            )
     day = models.CharField( max_length=10, choices=DAY_CHOICES )
     start_time = models.TimeField()
     end_time = models.TimeField(blank=True,null=True)
@@ -122,22 +122,23 @@ class Plaza(models.Model):
   def __unicode__(self):
       return u'%s: %s' % ( self.nombre, self.direccion )
 
-FILE_TYPE_CHOICES = ( 
-  (u'IMG', u'Imagen'),
-  (u'VID', u'Video')
-  )  
+  
   
 class AVField(models.Model):
+    FILE_TYPE_CHOICES = ( 
+            (u'IMG', u'Imagen'),
+            (u'VID', u'Video'),
+            )
     path = models.FileField(upload_to='uploaded_media/')
     f_type = models.CharField( max_length = 10, choices = FILE_TYPE_CHOICES)
-    #uploaded_by = models.ForeignKey('User')
+    uploaded_by = models.ForeignKey('UserProfile')
     
     def __unicode__(self):
         return u'%s: %s' % ( self.filename, self.f_type )
 
-"""
 class UserProfile(User):
     user = models.OneToOneField(User)
-
     #other_fields here
-"""
+
+    def __unicode__(self):
+        return u'%s' % (self.user,)

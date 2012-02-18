@@ -12,8 +12,8 @@ from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.core import serializers
 from django.utils import simplejson
 
-import portal.models as models
-import portal.forms as forms
+import teatro_peru.models as models
+import teatro_peru.forms as forms
 import datetime
 #from django.contrib.auth import authenticate, login, logout
 import django.contrib.auth as auth
@@ -96,7 +96,7 @@ def cartelera(request):
   
   print 'OBRAS:', obras
 
-  return render_to_response('cartelera.html',{'obras':obras,'meses':d_meses,'dias':dias}, context_instance=RequestContext(request))
+  return render_to_response('teatro_peru/cartelera.html',{'obras':obras,'meses':d_meses,'dias':dias}, context_instance=RequestContext(request))
 
     
 
@@ -178,7 +178,7 @@ def cartelera_alt(request):
       obras.append( obra )
   
   
-  return render_to_response('cartelera_alt.html',{'obras':obras,'meses':d_meses,'dias':dias}, context_instance=RequestContext(request))
+  return render_to_response('teatro_peru/cartelera_alt.html',{'obras':obras,'meses':d_meses,'dias':dias}, context_instance=RequestContext(request))
 
   
 def puesta_view(request,puesta_id):
@@ -188,10 +188,10 @@ def puesta_view(request,puesta_id):
         return render_to_response('Forever404.html',{'name':puesta_id}, context_instance=RequestContext(request))
     except MultipleObjectsReturned:
         return render_to_response('404.html',{}, context_instance=RequestContext(request))
-    return render_to_response('puesta.html',{'puesta':puesta}, context_instance=RequestContext(request))
+    return render_to_response('teatro_peru/puesta.html',{'puesta':puesta}, context_instance=RequestContext(request))
 
 def obra_view(request):
-    return render_to_response('obra.html',{'obra':obra}, context_instance=RequestContext(request))
+    return render_to_response('teatro_peru/obra.html',{'obra':obra}, context_instance=RequestContext(request))
     
 def elenco_view(request, elenco_id):
     try:
