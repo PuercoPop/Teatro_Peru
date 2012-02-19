@@ -2,6 +2,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+from teatro_peru import strings
 
 class Horario(models.Model):
     DAY_CHOICES = ( 
@@ -139,6 +140,9 @@ class AVField(models.Model):
 class UserProfile(User):
     user = models.OneToOneField(User)
     #other_fields here
-
+    profile_picture = models.ImageField(upload_to= 'Profile_Pictures',\
+            verbose_name=strings.PROFILE_PICTURE, blank=True)
+    hideEmail = models.BooleanField(verbose_name=strings.HIDE_EMAIL, blank=True)
+    
     def __unicode__(self):
         return u'%s' % (self.user,)

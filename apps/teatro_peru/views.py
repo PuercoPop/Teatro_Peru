@@ -1,5 +1,4 @@
-# coding=utf8
-# Create your views here.
+# -*- coding:utf8 -*-
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.template import RequestContext
@@ -14,6 +13,7 @@ from django.utils import simplejson
 
 import teatro_peru.models as models
 import teatro_peru.forms as forms
+from teatro_peru.forms import UserProfileForm
 import datetime
 #from django.contrib.auth import authenticate, login, logout
 import django.contrib.auth as auth
@@ -225,9 +225,8 @@ def cartelera_fecha(request, ano=None, mes=None, dia=None):
     elif date_target.weekday() == 6:
         rslt = models.PuestaEnEscena.objects.filter( fin_de_temporada__gte = date_target ).filter( inicio_de_temporada__lte = date_target ).filter( horarios__day__exact = 'D')
     
-    return render_to_response('cartelera_dia.html', {'fecha':date_target, 'puestas': rslt, 'fecha_next': date_target + datetime.timedelta(1), 'fecha_prev': date_target - datetime.timedelta(1) }, context_instance=RequestContext(request) )
+    return render_to_response('teatro_peru/cartelera_dia.html', {'fecha':date_target, 'puestas': rslt, 'fecha_next': date_target + datetime.timedelta(1), 'fecha_prev': date_target - datetime.timedelta(1) }, context_instance=RequestContext(request) )
     
-@csrf_protect
 def log_user(request):
     if request.POST:
         user = auth.authenticate( username=request.POST['name'], password=request.POST['password'] )
@@ -237,9 +236,9 @@ def log_user(request):
             return redirect('/')
         else:
             print "Your username and password were incorrect."
-            return render_to_response('login_form.html', {} , context_instance=RequestContext(request))
+            return render_to_response('teatro_peru/login_form.html', {} , context_instance=RequestContext(request))
     else:
-        return render_to_response('login_form.html', {} , context_instance=RequestContext(request))
+        return render_to_response('teatro_peru/login_form.html', {} , context_instance=RequestContext(request))
                 
 def logout_user(request):
         auth.logout(request)
@@ -248,8 +247,16 @@ def logout_user(request):
         return redirect('/hoy/')
         
 def create_user(request):
-    
-    return render_to_response( 'create_user.html', {} , context_instance=RequestContext(request) )
+    if request.method == "POST":
+        form = UserProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            user = form.save()
+            return render( request, 'teatro_peru/created_user.html', {'user':user})
+        else:
+            return render( request, 'teatro_peru/create_user.html', {'form':form})
+    else:
+        form = UserProfileForm()
+        return render( request, 'teatro_peru/create_user.html', {'form':form} )
 
 def plaza_view(request,id):
   return HttpResponse('I O U')
@@ -257,14 +264,14 @@ def plaza_view(request,id):
 
 def crear_puesta(request):
 
-  return render( request, 'crear_puesta.html', {'form': forms.PuestaEnEscena  })
+  return render( request, 'teatro_peru/crear_puesta.html', {'form': forms.PuestaEnEscena  })
 
 def buscar_titulo(request):
   if request.GET:
     pattern = request.GET[u'term']
     result = models.Obra.objects.filter(titulo__icontains=pattern)
     if result.count() >= 1:
-      html_str = render_to_string('show_obra.html',{'obras': result} )
+      html_str = render_to_string('teatro_peru/show_obra.html',{'obras': result} )
       return HttpResponse( html_str )
     else:
       return HttpResponse('')
@@ -278,7 +285,7 @@ def validate_entrada(request):
     entradaForm = forms.Entrada( {'name' : request.POST['entrada'], 'cost': request.POST['costo']} ) 
     if entradaForm.is_valid():
       q = entradaForm.save(commit=False)
-      html_str = render_to_string( 'show_entrada.html', {'m_entrada':q} )
+      html_str = render_to_string( 'teatro_peru/show_entrada.html', {'m_entrada':q} )
       return HttpResponse(html_str)
 
   return HttpResponse('No Parameters')
