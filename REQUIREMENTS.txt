@@ -1,2 +1,5 @@
 django
+psycopg2
+PIL
 south
+django-social-auth

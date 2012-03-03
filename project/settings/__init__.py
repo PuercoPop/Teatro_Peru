@@ -136,7 +136,6 @@ INSTALLED_APPS = (
     'teatro_peru',
     'south',
     #'social_auth',
-    'la_facebook',
 
 )
 
