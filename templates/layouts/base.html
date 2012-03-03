@@ -15,7 +15,7 @@
   <script src="{{ STATIC_URL }}js/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="{{ STATIC_URL }}js/teatro_peru/global_functions.js" ></script>
   {% block local-scripts%}{% endblock %}
-  <title>{% block title %}{% endblock %}</title>
+  <title>{% block title %}Teatro Perú{% endblock %}</title>
 </head>
 
 <body>
@@ -32,6 +32,9 @@
       <button type="submit" class="search"></button>
     </span>
     {% include "includes/login_widget.html" %}
+  </div>
+  <div id="sub-menu">
+    <a href="/crear_puesta/">Crear Puesta</a>
   </div>
   {% endspaceless %}
 

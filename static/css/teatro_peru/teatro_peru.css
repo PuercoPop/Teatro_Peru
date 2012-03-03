@@ -201,7 +201,7 @@ span#login {
 
 /* Top menu */
 
-div#top-menu {
+div#top-menu, div#sub-menu {
     background-color:orange;
     border-top:5px;
     border-left:0px;
@@ -221,7 +221,7 @@ div#top-menu {
     clear:both
 }
 
-div#top-menu a,spann {
+div#top-menu, div#sub-menu,a ,span {
     margin-left:0.5em;
     margin-right:0.5em;
 }
