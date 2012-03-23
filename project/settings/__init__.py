@@ -50,7 +50,7 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = join( ROOT_DIR, 'media' )
+MEDIA_ROOT = join(ROOT_DIR, 'media')
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -61,7 +61,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = join( ROOT_DIR, 'static' )
+STATIC_ROOT = join(ROOT_DIR, 'static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -110,7 +110,7 @@ ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     #'/home/pirata/Data/Teatro_Peru/MockUps',
-    join( ROOT_DIR, 'templates'),
+    join(ROOT_DIR, 'templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -154,10 +154,10 @@ INSTALLED_APPS = (
 #http://www.puercopop.com/wordpress/
 
 FACEBOOK_ACCESS_SETTINGS = {
-    "FACEBOOK_APP_ID" : "188490811197615",
-    "FACEBOOK_APP_SECRET" : "01641d0e9df880083219aebc430a63a7",
-    "LOG_FILE" : "/home/pirata/la_facebook.log",
-    "LOG_LEVEL" : "DEBUG",
+    "FACEBOOK_APP_ID": "188490811197615",
+    "FACEBOOK_APP_SECRET": "01641d0e9df880083219aebc430a63a7",
+    "LOG_FILE": "/home/pirata/la_facebook.log",
+    "LOG_LEVEL": "DEBUG",
     }
 
 
@@ -185,3 +185,8 @@ LOGGING = {
 }
 
 DEFAULT_CACHE_TIMEOUT = 5
+
+try:
+    from local_settings import *
+except:
+    pass
