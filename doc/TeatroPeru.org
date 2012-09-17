@@ -1,0 +1,174 @@
+* Mision y Vision
+
+TODO
+- [ ] Version 1 [0%]
+  - [ ] Templates
+  - [ ] Models
+  -  [ ] Views
+* Roadmap
+** Version 0.1
+  - [ ] Define base URLs
+  - [ ] Define Models
+** Version 0.2
+  - [ ] Cartelera
+  - [ ] CRUD view
+  - [ ] Define ajax ULs
+** Version 0.3
+  - [ ] AJAX views and javascript
+** Version 0.4
+   Theme
+
+* Design Decisiones
+** Database
+   What objectos get rating? Does a Play get a rating or just each Showing? Probably not a good idea, what percentages of plays get repeat showings in Lima? But It would be a good idea to list the Different Showings by rating
+
+   Do we let users rate each plaza? Maybe a good idea. To promote user feedback. Start with comments?
+
+   Do we use PostgresSQL, mongodb, Redis? What advantage does Redis offer? mongodb has a flexible object definition but at the expense of querying efficiency so probably not a good idea as data is going going to be read more than.
+
+
+** Models
+Play <-> Obra
+
+title = str
+author = str/cast_member
+[date_of_publication = datefield]
+[original_language = choicefield]
+[country = choicefield]
+Showing <-> Puesta en Escena
+
+name = str
+play = FK_play
+season_start: DateField
+season_end: DateField
+ticket = FK_ticket
+rating = FK_rating
+sumilla = str
+interviews = FK_Article
+CastMember <-> Elenco
+
+name: str
+posición: Choices
+media: OneToMany_AVField
+[account: OneToOne]
+AVMaterial <-> MaterialAV
+
+file:
+name?
+Theatre <-> Plaza
+
+name = str
+addres = str
+[map_pink = url]
+[profile_photo = AVField]
+Schedule <-> Programación
+
+day: choice_list
+start_time: hour_field
+[end_time: hour_field]
+Ticket <-> Ticket
+
+name = str
+cost = DecimalField
+Review <-> Reseña
+
+author = str/UserProfile
+title = str
+text = str
+date = datefield
+last_edit = datetimefield
+[url = url ]
+Article <-> Artículo
+
+author = str/UserProfile
+title = str
+text = str
+type = choices
+[url = url]
+UserProfile <-> Perfil de Usuario
+
+Rating <-> Rating
+
+like = positiveinteger
+dislike = positiveinteger
+** URLs
+*** Cartlera
+    /cartelera/
+    Descripción
+Muestra las puestas en escena desde hoy hasta 45 días, ordenada por plazas. 
+Ordenes alternos, por rates,
+
+ /hoy/
+### Descripción
+Muestra las puestas en escena hoy, de forma tabular, con la información
+relevante: Titulo, Plaza, Hora Entrada y Rates.
+
+ /<año>/[página/<num_id>/]
+ /<año>/<mes>/[página/<num_id>/]
+ /<año>/<mes>/<dia>/[página/<num_id>/]
+### Descripción
+Busqueda por fecha, paginado de 10 en 10.
+
+ /usuario/crear/
+ /usuario/crear/
+ /usuario/<account>
+
+ /obra/crear/
+ /obra/editar/
+ /obra/nombre/<Name>/[página/<num_id>]/
+ /obra/<id>/
+
+ /plaza/crear/
+ /plaza/editar/
+ /plaza/nombre/<nombre>/[página/1]
+ /plaza/<id>/
+
+ /elenco/crear/
+ /elenco/editar/
+ /elenco/<id>/
+ /elenco/nombre/<name>/[página/<num_id>]/
+ /elenco/<obra>/nombre/<name>/[página/<num_id>]/
+ /elenco/<obra>/<id>
+
+ /reseña/crear/
+ /reseña/editar/
+ /reseña/autor/<nombre>/
+ /reseña/autor/<id>/
+ /reseña/<id>/
+
+ /artículo/crear/
+ /artículo/editar/
+ /artículo/autor/<nombre>/
+ /artículo/autor/<id>/
+ /artículo/<id>
+
+ /materialav/
+ /materialav/<id>/
+ /materialav/photo/
+ /materialav/video/
+ /materialav/puesta/<nombre>/
+ /materialav/subido_por/<nombre>/
+ /materialav/subido_por/<id>/
+ /materialav/tag/<tag>
+
+### Ajax Views
+
+ /ajax/
+
+* Layout
+OUTLINE
+General Theme
+Cartelera
+CRUD Para:
+Puesta
+Obra
+Obra
+Cast Member
+Plaza
+Review
+News/Article
+Audivisual Material
+Wireframes
+General Theme
+
+Mockusp
