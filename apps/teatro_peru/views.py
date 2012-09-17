@@ -8,7 +8,7 @@ import django.contrib.auth as auth
 #from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
@@ -123,15 +123,8 @@ def cartelera(request):
             })
 
 
-def puesta_view(request, puesta_id):
-    try:
-        puesta = models.Showing.objects.get(id=puesta_id)
-    except ObjectDoesNotExist:
-        return render(
-                    request,
-                    'Forever404.html',
-                    {'name': puesta_id},
-                )
+def show_showing(request, puesta_id):
+    obra = get_object_or_404(Showing, pk=obra_id,)
     return render(
                 render,
                 'teatro_peru/puesta.html',
@@ -139,19 +132,17 @@ def puesta_view(request, puesta_id):
             )
 
 
-def obra_view(request, obra_id):
-    try:
-        obra = models.PlayWright.objects.get(id=obra_id)
-    except ObjectDoesNotExist:
-        return render(
-                    request,
-                    'Forever404.html',
-                )
+def show_play(request, play_id):
+    """
+    Show info regarding a Play's showing
+    """
+    obra = get_object_or_404(Play, pk=play_id,)
+
     return render(
-            request,
-            'teatro_peru/obra.html',
-            {'obra': obra},
-            )
+        request,
+        'teatro_peru/obra.html',
+        {'obra': obra},
+        )
 
 
 def elenco_view(request, elenco_id):
@@ -169,40 +160,43 @@ def elenco_view(request, elenco_id):
             )
 
 
-def cartelera_fecha(request, ano=None, mes=None, dia=None):
-
-    if (ano == None) and (mes == None) and (dia == None):
+def billboard_at_date(request, year=None, month=None, day=None):
+    """
+    First we search for all the showings that start befor the date and end after the date. Then we make sure that there is a showing for this day of the week. If no date is provided then the date defaults to today.
+    """
+    if (year is None) and (month is None) and (day is None):
         date_target = datetime.date.today()
     else:
-        date_target = datetime.date(int(ano), int(mes), int(dia))
-    #Primero evaluar que projectos terminan despues del día y luego cuales empiezan antes del dia
-    #rslt = models.Showing.objects.filter( season_end__gte = date_target ).filter( season_start__lte = date_target )
-    #print rslt
-    #Ahora vemos sí hay función para el día actual
+        date_target = datetime.date(int(year), int(month), int(day))
+    
+    query = models.Showing.objects.filter(season_end__gte=date_target).filter(season_start__lte=date_target)
+
     if date_target.weekday() == 0:
-        rslt = models.Showing.objects.filter( season_end__gte=date_target ).filter( season_start__lte = date_target ).filter( horarios__day__exact = 'L')
+        target_day = 'L'
     elif date_target.weekday() == 1:
-        rslt = models.Showing.objects.filter( season_end__gte=date_target ).filter( season_start__lte = date_target ).filter( horarios__day__exact='M')
+        target_day = 'M'
     elif date_target.weekday() == 2:
-        rslt = models.Showing.objects.filter( season_end__gte = date_target ).filter( season_start__lte = date_target ).filter( horarios__day__exact = 'X')
+        target_day = 'X'
     elif date_target.weekday() == 3:
-        rslt = models.Showing.objects.filter( season_end__gte = date_target ).filter( season_start__lte = date_target ).filter( horarios__day__exact = 'J')
+        target_day = 'J'
     elif date_target.weekday() == 4:
-        rslt = models.Showing.objects.filter( season_end__gte = date_target ).filter( season_start__lte = date_target ).filter( horarios__day__exact = 'V')
+        target_day = 'V'
     elif date_target.weekday() == 5:
-        rslt = models.Showing.objects.filter( season_end__gte = date_target ).filter( season_start__lte = date_target ).filter( horarios__day__exact = 'S')
+        'S'
     elif date_target.weekday() == 6:
-        rslt = models.Showing.objects.filter( season_end__gte = date_target ).filter( season_start__lte = date_target ).filter( horarios__day__exact = 'D')
+        target_day = 'D'
+
+    result = query.filter(schedule__day__exact=target_day)
 
     return render(
-                request,
-                'teatro_peru/cartelera_dia.html',
-                {
-                    'fecha': date_target,
-                    'puestas': rslt,
-                    'fecha_next': date_target + datetime.timedelta(1),
-                    'fecha_prev': date_target - datetime.timedelta(1)
-                })
+        request,
+        'teatro_peru/cartelera_day.html',
+        {
+            'fecha': date_target,
+            'puestas': result,
+            'fecha_next': date_target + datetime.timedelta(1),
+            'fecha_prev': date_target - datetime.timedelta(1),}
+        )
 
 
 def log_user(request):
@@ -228,6 +222,9 @@ def logout_user(request):
 
 
 def create_user(request):
+    """
+    TODO: Evaluate if one can use partials for form
+    """
     if request.method == "POST":
         form = forms.UserProfileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -235,28 +232,28 @@ def create_user(request):
             return render(
                         request,
                         'teatro_peru/created_user.html',
-                        {'user': user}
+                        {'user': user},
                     )
         else:
             return render(
                         request,
                         'teatro_peru/create_user.html',
-                        {'form': form}
+                        {'form': form},
                     )
     else:
         form = forms.UserProfileForm()
-        return render(request,
-                'teatro_peru/create_user.html',
-                {
-                    'form': form
-                })
+        return render(
+            request,
+            'teatro_peru/create_user.html',
+            {'form': form,},
+            )
 
 
-def plaza_view(request, id):
+def show_plaza(request, id):
     return HttpResponse('I O U')
 
 
-def creat_puesta(request):
+def crear_puesta(request):
     if request.method == "POST":
         pass
     else:
@@ -270,6 +267,10 @@ def creat_puesta(request):
 
 
 def search_by_title(request):
+    """
+    Search by title autocomplete
+    TODO: why render_to_string and not render?
+    """
     if request.GET:
         pattern = request.GET[u'term']
         result = models.Obra.objects.filter(titulo__icontains=pattern)
@@ -279,7 +280,7 @@ def search_by_title(request):
             return HttpResponse(html_str,
                                 mimetype='application/json',)
         else:
-            return HttpResponse('',mimetype='application/json')
+            return HttpResponse('', mimetype='application/json')
     else:
         return HttpResponse('', mimetype='application/json')
 

@@ -1,32 +1,29 @@
-<!DOCTYPE html>
-<head>
-    {% include "global_includes.html" %}
-    <title>Cartelera para {{ fecha|date:"D d, F, Y" }}</title>
-</head>
+{% extends "layouts/base.html" %}
 
-<body>
+{% block title %}Cartelera para {{ fecha|date:"D d, F, Y" }}{% endblock %}
 
-{% include "top_menu.html" %}
-<a href="/{{ fecha_prev.year }}/{{ fecha_prev.month }}/{{ fecha_prev.day }}">Ayer</a>
-<a href="/{{ fecha_next.year }}/{{ fecha_next.month }}/{{ fecha_next.day }}">Mañana</a>
+{% block main-content %}
+  <a href="/{{ fecha_prev.year }}/{{ fecha_prev.month }}/{{ fecha_prev.day }}">Ayer</a>
+  <a href="/{{ fecha_next.year }}/{{ fecha_next.month }}/{{ fecha_next.day }}">Mañana</a>
 
-{% if puestas %}
-<table>
+  {% if puestas %}
+  <table>
     <tr>
-        <th> Obra
-        <th> Teatro
-        <th> Hora de Inicio
-        <th> Precio
-    {% spaceless %}
-    {% for puesta in puestas %}
+      <th> Obra
+      <th> Teatro
+      <th> Hora de Inicio
+      <th> Precio
+        {% spaceless %}
+        {% for puesta in puestas %}
+    </tr>
     <tr>
-        <td> {{ puesta.obra.titulo }}
-        <td> {{ puesta.plaza.nombre }}
-        <td> {% for horario in puesta.horarios.all %}
-                {% if fecha.weekday == 0 %}
-                    {%if horario.day == 'L'%}
-                        <li> {{horario.start_time }}
-                    {% endif %}
+      <td> {{ puesta.obra.titulo }}
+      <td> {{ puesta.plaza.nombre }}
+      <td> {% for horario in puesta.horarios.all %}
+        {% if fecha.weekday == 0 %}
+        {% if horario.day == 'L'%}
+          <li> {{horario.start_time }}
+        {% endif %}
                 {% endif %}
                 {% if fecha.weekday == 1 %}
                     {%if horario.day == 'M'%}
@@ -65,9 +62,8 @@
     <tr>
     {% endfor %}
     {% endspaceless %}
-<table>
-{% else %}
-    <p> No hay obras en exhibici&oacute;n este d&iacute;a
-{% endif %}
-
-</body>
+  </table>
+  {% else %}
+    <p> No hay obras en exhibición este día</p>
+  {% endif %}
+{% endblock %}

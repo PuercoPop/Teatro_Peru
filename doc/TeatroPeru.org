@@ -6,6 +6,13 @@ TODO
   - [ ] Models
   -  [ ] Views
 * Roadmap
+** Version 0.0
+   Refactoring from previous structure
+*** Views
+*** Urls
+*** Templates
+    - [ ] Cartelera_day
+      - [ ] translate variable names to english
 ** Version 0.1
   - [ ] Define base URLs
   - [ ] Define Models
@@ -172,3 +179,7 @@ Wireframes
 General Theme
 
 Mockusp
+** Templates
+*** Layouts
+*** teatro_peru
+**** Cartelera_day

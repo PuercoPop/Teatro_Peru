@@ -7,13 +7,14 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-                url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-                url(r'^admin/', include(admin.site.urls)),
+urlpatterns = patterns(
+    '',
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/', include(admin.site.urls)),
 
-                url(r'^', include('teatro_peru.urls')),
-                #url('', include('social_auth.urls') ),
-                url(r'^la_facebook/', include('la_facebook.urls') ),
+    url(r'^', include('teatro_peru.urls')),
+    #url('', include('social_auth.urls') ),
+    #url(r'^la_facebook/', include('la_facebook.urls') ),
 )
 
 if settings.DEBUG == True:

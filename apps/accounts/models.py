@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib.auth.models import User
-from django.db.models.signal import post_save
+from django.db import models
+from django.db.models.signals import post_save
 
-import .strings
+from accounts import strings
 
-class UserProfile(User):
+class UserProfile(models.Model):
     """
     User Profile
     """
@@ -26,4 +27,4 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         profile, created = UserProfile.objects.get_or_create(user=instance)
 
-post_save.connect(create, sender=User)
+post_save.connect(create_user_profile, sender=User)

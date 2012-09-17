@@ -1,8 +1,11 @@
-#directories
+# Directories
 env/
 MockUps/
 
-# python
+# Project files
+local_settings.py
+
+# Python
 *.pyc
 *.pyo
 

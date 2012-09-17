@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from .models import Play, Ticket, CastMember, UserProfile
-import .strings
+from accounts.models import UserProfile
+from teatro_peru.models import Play, Ticket, CastMember
+from teatro_peru import strings
 
 
 class PlayForm(forms.ModelForm):

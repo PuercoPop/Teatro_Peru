@@ -94,7 +94,7 @@ SECRET_KEY = '^g*n@8%m#)hiplm1%tb$ks#isu&nr9!1p(bl$*y75cp)56wi#3'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    #'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,7 +103,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    #User Added
+    # User Added
 )
 
 ROOT_URLCONF = 'urls'
@@ -114,7 +114,7 @@ TEMPLATE_DIRS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.core.context_processors.auth",
+    "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.debug",
     "django.core.context_processors.i18n",
     "django.core.context_processors.media",
@@ -128,15 +128,18 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    # Uncomment the next line to enable the admin:
+
+    # Admin
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    #User Added
-    'teatro_peru',
+
+    # Development
     'south',
     #'social_auth',
 
+    #User Added
+    'teatro_peru',
+    'accounts',
 )
 
 #AUTHENTICATION_BACKENDS = (

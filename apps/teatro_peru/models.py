@@ -169,30 +169,17 @@ class CastMember(models.Model):
 
 class AVField(models.Model):
     """
-    A Video or Image
+    A Video or Image. Rework filetype management also.
     """
     FILE_TYPE_CHOICES = (
             (u'IMG', u'Imagen'),
             (u'VID', u'Video'),
             )
-    path = models.FileField(upload_to='uploaded_media/')
-    f_type = models.CharField( max_length = 10, choices = FILE_TYPE_CHOICES)
-    uploaded_by = models.ForeignKey('UserProfile')
+    path = models.FileField(upload_to='uploaded_media/',)
+    f_type = models.CharField(max_length = 10, choices=FILE_TYPE_CHOICES,)
+    uploaded_by = models.ForeignKey(
+        User,
+        related_name='user_submitted_media',)
 
     def __unicode__(self):
-        return u'%s: %s' % ( self.filename, self.f_type )
-
-
-class UserProfile(User):
-    """
-    User Profile
-    """
-    user = models.OneToOneField(User)
-    #other_fields here
-    profile_picture = models.ImageField(upload_to= 'Profile_Pictures',
-            verbose_name=strings.PROFILE_PICTURE, blank=True)
-    hideEmail = models.BooleanField(verbose_name=strings.HIDE_EMAIL,
-            blank=True)
-
-    def __unicode__(self):
-        return u'%s' % (self.user,)
+        return u'%s: %s' % (self.filename, self.f_type)
