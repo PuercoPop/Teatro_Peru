@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -14,65 +15,85 @@ class Schedule(models.Model):
             (u'S', 'Sábado'),
             (u'D', 'Domingo')
             )
-    day = models.CharField( max_length=10, choices=DAY_CHOICES )
+    day = models.CharField(max_length=10, choices=DAY_CHOICES)
     start_time = models.TimeField()
     end_time = models.TimeField(blank=True, null=True)
 
     def __unicode__(self):
-        return u'%s: %s' % ( self.day, self.start_time )
+        return u'%s: %s' % (self.day, self.start_time)
+
 
 class Ticket(models.Model):
+    """
+    Model for a ticket, name and cost in soles.
+    """
     name = models.CharField(max_length=30)
-    #MaxValue:9999.99
-    cost = models.DecimalField( max_digits=6, decimal_places=2)
+    cost = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __unicode__(self):
-        return u'%s: %d' % ( self.name, self.cost)
+        return u'%s: %d' % (self.name, self.cost)
+
 
 class Theatre(models.Model):
-    name = models.CharField(max_length = 100)
-    address = models.CharField(max_length = 100)
-    map_link = models.URLField( verify_exists=True, max_length=100, blank=True )
+    """
+    Theatre where the play is showing. Link to google maps/foursquare?
+    """
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    map_link = models.URLField(verify_exists=True, max_length=100, blank=True)
     perfil = models.ForeignKey('AVField', blank=True)
 
     def __unicode__(self):
-        return u'%s' % ( self.name, )
+        return u'%s' % (self.name,)
+
 
 class Play(models.Model):
-    title = models.CharField( max_length = 100 )
-    author = models.CharField( max_length = 100)
+    """
+    Play information.
+    """
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
     #Date of publishing
-    date = models.DateField( blank=True )
-    origin_language = models.CharField( max_length = 100, blank=True )
-    country = models.CharField( max_length = 100, blank=True )
+    date = models.DateField(blank=True)
+    origin_language = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    #related
 
     def __unicode__(self):
         return u'%s de %s' % ( self.title, self.author )
 
 
 class Rating(models.Model):
+    """
+    Generic model to rate another model.
+    """
     like = models.PositiveIntegerField( default = 0 )
     dislike = models.IntegerField( default = 0 )
 
     def __unicode__(self):
         return u'Likes: %d, Dislikes: %d' % (self.like, self.dislike)
 
+
 class Review(models.Model):
     """
-    Reseña
+    Review of a Showing
     """
-    author = models.CharField( max_length = 30 )
-    title = models.CharField( max_length = 24)
-    text = models.CharField( max_length = 1500 )
-    date = models.DateField( auto_now_add = True )
+    author = models.CharField(max_length=30)
+    title = models.CharField(max_length=24)
+    text = models.CharField(max_length=1500)
+    date = models.DateField(auto_now_add=True)
     rating = models.OneToOneField('Rating')
     #Optional para las External
-    url = models.URLField( verify_exists=True, blank=True, null=True )
+    url = models.URLField(verify_exists=True, blank=True, null=True)
 
     def __unicode__(self):
-        return u'Reseña por %s' % ( self.author )
+        return u'Reseña por %s' % (self.author)
+
 
 class Showing(models.Model):
+    """
+    The 'instance' of a play
+    """
     theatre = models.ForeignKey('Theatre')
     play = models.ForeignKey('Play')
     season_start = models.DateField()
@@ -80,19 +101,19 @@ class Showing(models.Model):
     ticket = models.ManyToManyField('Ticket')
     schedule = models.ManyToManyField('Schedule')
     rating = models.OneToOneField('Rating')
-    sumilla = models.CharField( max_length = 1000, blank=True )
-    reviews = models.ManyToManyField(Review, blank=True )
+    sumilla = models.CharField(max_length=1000, blank=True)
+    reviews = models.ManyToManyField(Review, blank=True)
     interviews = models.ManyToManyField('Article', blank=True, null=True)
-    cast = models.ManyToManyField('CastMember', blank=True )
+    cast = models.ManyToManyField('CastMember', blank=True)
     profile = models.ForeignKey('AVField',
             blank=True,
             null=True,
-            related_name = 'Showing_profile'
+            related_name = 'Showing_profile',
             )
     media = models.ManyToManyField('AVField',
             blank=True,
             null=True,
-            related_name = 'Showing_media'
+            related_name = 'Showing_media',
             )
 
     def __unicode__(self):
@@ -101,27 +122,31 @@ class Showing(models.Model):
 
 class Article(models.Model):
     """
-    Para Entrevistas
+    For interviews and coverage of plays
     """
-    author = models.CharField( max_length = 30)
-    text = models.CharField( max_length = 5000 )
-    date = models.DateField( auto_now_add = True )
+    author = models.CharField(max_length=30)
+    text = models.CharField(max_length = 5000)
+    date = models.DateField(auto_now_add=True)
     rating = models.OneToOneField('Rating')
 
     def __unicode__(self):
         return u'%s, %s en %s' % (self.author, self.text, self.date)
 
+
 class CastMember(models.Model):
-    name = models.CharField( max_length = 100 )
-    lastname  = models.CharField( max_length = 100)
-    email = models.EmailField( max_length=75,
+    """
+    Cast member model, may be related to a user profile, display workphone, etc
+    """
+    name = models.CharField(max_length=100)
+    lastname  = models.CharField(max_length=100)
+    email = models.EmailField(max_length=75,
             blank = True,
-            verbose_name = u'Correo Eléctronico'
+            verbose_name = u'Correo Eléctronico',
             )
-    telephone = models.IntegerField( blank=True, null=True )
+    telephone = models.IntegerField(blank=True, null=True,)
     cellphone = models.IntegerField( blank=True,
             null=True,
-            verbose_name = u'Celular'
+            verbose_name = u'Celular',
             )
     reviews = models.ManyToManyField('Review', blank=True)
     role = models.CharField( max_length = 30)
@@ -131,16 +156,21 @@ class CastMember(models.Model):
             null=True,
             related_name = 'CastMember_profile'
             )
-    media = models.ManyToManyField('AVField',
-            blank=True,
-            null=True,
-            related_name = 'CastMember_media'
-            )
+    media = models.ManyToManyField(
+        'AVField',
+        blank=True,
+        null=True,
+        related_name = 'CastMember_media',
+        )
 
     def __unicode__(self):
         return u'%s: %s %s' % (self.role, self.name, self.lastname)
 
+
 class AVField(models.Model):
+    """
+    A Video or Image
+    """
     FILE_TYPE_CHOICES = (
             (u'IMG', u'Imagen'),
             (u'VID', u'Video'),
@@ -152,7 +182,11 @@ class AVField(models.Model):
     def __unicode__(self):
         return u'%s: %s' % ( self.filename, self.f_type )
 
+
 class UserProfile(User):
+    """
+    User Profile
+    """
     user = models.OneToOneField(User)
     #other_fields here
     profile_picture = models.ImageField(upload_to= 'Profile_Pictures',

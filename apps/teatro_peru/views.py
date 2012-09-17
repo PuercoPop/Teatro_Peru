@@ -1,20 +1,20 @@
-# -*- coding:utf8 -*-
+# -*- coding: utf-8 -*-
 
+import datetime
+
+from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
+import django.contrib.auth as auth
+#from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_protect
-
-from django.core import serializers
 from django.utils import simplejson
 
 from teatro_peru import models, forms
-import datetime
-#from django.contrib.auth import authenticate, login, logout
-import django.contrib.auth as auth
 
 
 def cartelera(request):
@@ -269,16 +269,17 @@ def creat_puesta(request):
             })
 
 
-def buscar_titulo(request):
+def search_by_title(request):
     if request.GET:
         pattern = request.GET[u'term']
         result = models.Obra.objects.filter(titulo__icontains=pattern)
         if result.count() >= 1:
             html_str = render_to_string('teatro_peru/show_obra.html',
                     {'obras': result})
-            return HttpResponse(html_str)
+            return HttpResponse(html_str,
+                                mimetype='application/json',)
         else:
-            return HttpResponse('')
+            return HttpResponse('',mimetype='application/json')
     else:
         return HttpResponse('', mimetype='application/json')
 

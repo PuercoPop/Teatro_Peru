@@ -1,7 +1,15 @@
+#directories
 env/
 MockUps/
+
+# python
 *.pyc
+*.pyo
+
+# Editor Files
 *~
 \#*#
 \#*~
+\.#*
+
 *.swp

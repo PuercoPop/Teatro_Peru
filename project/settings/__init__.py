@@ -185,6 +185,8 @@ LOGGING = {
 }
 
 DEFAULT_CACHE_TIMEOUT = 5
+AUTH_PROFILE_MODULE = 'accounts.models.UserProfile'
+
 
 try:
     from local_settings import *
