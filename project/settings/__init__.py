@@ -188,7 +188,11 @@ LOGGING = {
 }
 
 DEFAULT_CACHE_TIMEOUT = 5
+
 AUTH_PROFILE_MODULE = 'accounts.models.UserProfile'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/hoy/'
+LOGOUT_URL = '/logout/'
 
 
 try:

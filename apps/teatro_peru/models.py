@@ -31,7 +31,7 @@ class Ticket(models.Model):
     cost = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __unicode__(self):
-        return u'%s: %d' % (self.name, self.cost)
+        return u'%s: %d' % (self.name, self.cost,)
 
 
 class Theatre(models.Model):

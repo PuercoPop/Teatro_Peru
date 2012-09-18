@@ -1,14 +1,20 @@
 {% extends "layouts/base.html" %}
 
-{% block local-scripts %}
-  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}static/crear_puesta.css">
-  <script src="{{ MEDIA_URL }}static/crear_puesta.js" ></script>
+{% block extra-head %}
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/teatro_peru/create_showing.css">
+  <script src="{{ STATIC_URL }}js/teatro_peru/crear_puesta.js" ></script>
 {% endblock %}
 
-{% block title %}Crear Obra{% endblock %}
+{% block title %}Crear Puesta{% endblock %}
+
+{% block sub-menu %}
+  <div id="sub-menu">
+    <a href="/crear_puesta/">Crear Puesta</a>
+  </div>
+{% endblock %}
 
 {% block main-content %}
-  <form action="." method="POST">{% csrf_token %}
+  <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
     <!--
 	Minimos: Titulo, Lugar, Fecha, Hora
       -->
@@ -42,5 +48,4 @@
     </div>
     <br>
     <input type="submit" value="Crear Puesta">
-
 {% endblock %}

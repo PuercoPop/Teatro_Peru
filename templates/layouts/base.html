@@ -14,31 +14,12 @@
   <script src="{{ STATIC_URL }}js/jquery-1.7.1.js"></script>
   <script src="{{ STATIC_URL }}js/jquery-ui-1.8.16.custom.min.js"></script>
   <script src="{{ STATIC_URL }}js/teatro_peru/global_functions.js" ></script>
-  {% block local-scripts%}{% endblock %}
+  {% block extra-head %}{% endblock %}
   <title>{% block title %}Teatro Perú{% endblock %}</title>
 </head>
 
 <body>
-  {% spaceless %}
-  <div id="top-menu">
-    <a href="/cartelera/">Home</a>
-    <a href="/hoy/">Hoy</a>
-    <a href="/cartelera/">Cartelera</a>
-    <a href="">Entrevistas</a>
-    <a href="">Reseñas</a>
-    <a href="">Buscar</a>
-    <span>
-      <input type="text">
-      <button type="submit" class="search"></button>
-    </span>
-    {% include "includes/login_widget.html" %}
-  </div>
-  <div id="sub-menu">
-    <a href="/crear_puesta/">Crear Puesta</a>
-  </div>
-  {% endspaceless %}
-
-{% block sub-menu %}{% endblock %}
-
-{% block main-content %}{% endblock %}
+  {% include "includes/top_menu.html" %}
+  {% block sub-menu %}{% endblock %}
+  {% block main-content %}{% endblock %}
 </body>

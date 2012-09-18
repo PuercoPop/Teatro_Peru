@@ -4,13 +4,14 @@ import datetime
 
 from django.core import serializers
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.context_processors import csrf
 import django.contrib.auth as auth
+from django.contrib.auth.decorators import login_required
 #from django.contrib.auth import authenticate, login, logout
-from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponse
-from django.core.context_processors import csrf
+from django.http import HttpResponse, HttpResponseBadRequest
+from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_protect
 from django.utils import simplejson
 
@@ -211,7 +212,10 @@ def log_user(request):
             print "Your username and password were incorrect."
             return render('teatro_peru/login_form.html', {})
     else:
-        return render('teatro_peru/login_form.html', {})
+        return render(
+            request,
+            'teatro_peru/login_form.html',
+            {},)
 
 
 def logout_user(request):
@@ -253,17 +257,21 @@ def show_plaza(request, id):
     return HttpResponse('I O U')
 
 
-def crear_puesta(request):
+@login_required
+def create_showing(request):
+    """
+    Create a Showing instance
+    """
     if request.method == "POST":
-        pass
+        form = forms.ShowingForm(request.POST, request.FILES,)
     else:
-        pass
+        form = forms.ShowingForm()
+
     return render(
             request,
-            'teatro_peru/crear_puesta.html',
-            {
-                'form': forms.Showing
-            })
+            'teatro_peru/create_showing.html',
+            {'form': form,},
+            )
 
 
 def search_by_title(request):
@@ -285,21 +293,22 @@ def search_by_title(request):
         return HttpResponse('', mimetype='application/json')
 
 
-def validate_entrada(request):
-    if request.POST:
-        entradaForm = forms.Entrada(
-                {
-                    'name': request.POST['entrada'],
-                    'cost': request.POST['costo'],
-                })
-        if entradaForm.is_valid():
-            q = entradaForm.save(commit=False)
-            html_str = render_to_string(
-                    'teatro_peru/show_entrada.html',
-                    {'m_entrada': q}
-                    )
-            return HttpResponse(html_str)
-    return HttpResponse('No Parameters')
+@require_POST
+def validate_ticket(request):
+    TicketForm = forms.TicketForm(
+        {'name': request.POST.get('name', None),
+         'cost': request.POST.get('cost', None),}
+        )
+    if TicketForm.is_valid():
+        ticket = TicketForm.save(commit=False)
+    else:
+        return HttpResponseBadRequest()
+
+    return render(
+        request,
+        'teatro_peru/show_entrada.html',
+        {'m_entrada': ticket},
+        )
 
 
 def validate_cast(request):

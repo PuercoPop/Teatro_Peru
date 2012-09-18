@@ -1,24 +1,22 @@
-
 /* General CSS*/
 
 p {
-    margin-left:0px;
-    margin-right:0px;
-    font-size: 14pt;
+  margin-left: 0px;
+  margin-right: 0px;
+  font-size: 14pt;
 }
 
 form {
-    margin:5px;
+    margin: 5px;
 }
 
-input[type="submit"]{
-    background: linear-gradient(#ccc, #222);
-    box-shadow: rgba(0, 0, 0, .5) 2px 2px 5px;
-    
+input[type="submit"] {
+  background: linear-gradient(#ccc, #222);
+  box-shadow: rgba(0, 0, 0, .5) 2px 2px 5px;
 }
 
 li {
-    list-style:none;
+  list-style:none;
 }
 
 
@@ -29,225 +27,230 @@ body {
 }
 
 img.material-av {
- border-width:thick;
- border-style:solid;
+  border-width: thick;
+  border-style: solid;
 }
 
 img.portrait {
- float:left;
- height:18em;
- width:12em;
+ float: left;
+ height: 18em;
+ width: 12em;
 }
 
 h1.header {
  background-color: #485ED5;
  padding: 2px;
- font-size:18pt;
+ font-size: 18pt;
 }
 
 h2.subheader {
   background-color: #485ED5;
-  line-height:14pt;
-  font-size:14pt;
+  line-height: 14pt;
+  font-size: 14pt;
 }
 
 p.cast-member {
- text-align: center; 
+  text-align: center;
 }
 
 span.left-element {
   display: block;
-  float:left;
+  float: left;
   width: 300px;
   text-align: right;
-  margin-right:0.5em;
-  
+  margin-right: 0.5em;
 }
 
 span.right-element {
-  margin-left:0.5em;/*tiene que ser 1 em */
+  margin-left: 0.5em;  /*tiene que ser 1 em */
 }
 
 /*Cartelera v2*/
 
 table.cartelera {
-    table-layout:auto;
-    background-color:cyan;
-    border-style:solid; /*// none | hidden | dotted | dashed | solid | double | groove | ridge | inset | outset*/
-    border-width:1px 1px;
-    margin-left:1em;
-    empty-cells:show;
+  table-layout: auto;
+  background-color: cyan;
+  border-style: solid;
+  border-width: 1px 1px;
+  margin-left: 1em;
+  empty-cells: show;
 }
 
 table.cartelera th {
-    background-color:red;
+  background-color: red;
 }
 
-table.cartelera tr, td {
-    padding:5px;
+table.cartelera tr,
+td {
+  padding: 5px;
 }
 
 table.cartelera th.mes-par {
-    background-color:yellow;
+  background-color: yellow;
 }
+
 table.cartelera th.mes-impar {
-    background-color:green;
+  background-color: green;
 }
+
 table.cartelera th.dia-par {
-    background-color:yellow;
+  background-color: yellow;
 }
 table.cartelera th.dia-impar {
-    background-color:green;
+  background-color: green;
 }
 table.cartelera td.obra {
-    background-color:red
+  background-color: red
 }
-
 
 table.cartelera th[scope=row] {
-    background-color:purple;
+  background-color: purple;
 }
+
 
 /*Cartelera*/
 
 div.cartelera-row {
- height: 100px;   
- display: table-row;
+  height: 100px;
+  display: table-row;
 }
 
 ul.cartelera {
- list-style-type: none; 
+  list-style-type: none;
 }
 
 span.mes-impar {
-  background-color:green;
+  background-color: green;
   display: inline-block;
-  border-width:1px;
-  text-align:center;
-  margin:0px;
-  font-family:"monospace";
+  border-width: 1px;
+  text-align: center;
+  margin: 0px;
+  font-family: "monospace";
 }
 
 span.mes-par {
-  background-color:yellow;
+  background-color: yellow;
   display: inline-block;
-  border-width:1px;
-  text-align:center;
-  margin:0px;
-  font-family:"monospace";
+  border-width: 1px;
+  text-align: center;
+  margin: 0px;
+  font-family: "monospace";
 }
 
 span.dia-impar {
-  background-color:green;
+  background-color: green;
   display: inline-block;
-  width:25px;
-  border-width:1px;
-  text-align:center;
-  font-family:"monospace";
+  width: 25px;
+  border-width: 1px;
+  text-align: center;
+  font-family: "monospace";
 }
 
 span.dia-par {
-  background-color:yellow;
+  background-color: yellow;
   display: inline-block;
-  width:25px;
-  border-width:1px;
-  text-align:center;
-  font-family:"monospace";
+  width: 25px;
+  border-width: 1px;
+  text-align: center;
+  font-family: "monospace";
 }
 
 span.plaza {
- background-color:purple;
+ background-color: purple;
  display: inline-block;
  text-align: center;
- width:75px;
- height:100px;
- vertical-align:middle;
- font-family:"monospace";
- 
+ width: 75px;
+ height: 100px;
+ vertical-align: middle;
+ font-family: "monospace";
 }
 
 span.obra {
-  background-color:red;
+  background-color: red;
   display: inline-block;
-  height:100px;
-  font-family:"monospace";
-  vertical-align:middle;
+  height: 100px;
+  font-family: "monospace";
+  vertical-align: middle;
   margin: 0px;
 }
 
-
 span.empty-space {
   display: inline-block;
-  width:75px;
+  width: 75px;
 }
 
 span.empty-day {
   display: inline-block;
-  width:25px;
+  width: 25px;
 }
+
 
 /* Login Window */
 
 a.login {
-    background-color:cyan;
-    display:inline-block;
-    float:right;
-    
+  background-color: cyan;
+  display: inline-block;
+  float: right;
 }
 
 span#login {
- float:right;   
+  float: right;
 }
+
 
 /* Top menu */
 
 div#top-menu, div#sub-menu {
-    background-color:orange;
-    border-top:5px;
-    border-left:0px;
-    border-right:0px;
-    border-bottom:5px;
-    border-style:solid;
-    
-    margin-top:20px;
-    margin-bottom:20px;
-    
-    padding-top:5px;
-    padding-bottom:5px;
-    padding-left:5px;
-    
-    line-height:1.2;
-    
-    clear:both
+  background-color: orange;
+  border-top: 5px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 5px;
+  border-style: solid;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+
+  line-height: 1.2;
+
+  clear: both
 }
 
-div#top-menu, div#sub-menu,a ,span {
-    margin-left:0.5em;
-    margin-right:0.5em;
+div#top-menu,
+div#sub-menu,
+span,
+a {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 
 button.search {
-    background-image: url(/media/static/lupa.png);
-    background-color:white;
-    width: 19px;
-    height: 21px;
-    border:1px;
-    border-style:solid;
-    padding:0px;
-    vertical-align:auto;
+  background-image: url(/media/static/lupa.png);
+  background-color: white;
+  width: 19px;
+  height: 21px;
+  border: 1px;
+  border-style: solid;
+  padding: 0px;
+  vertical-align :auto;
 }
+
 
 /* create user */
 
 form#create-user {
-    margin: 15px;
-    border: 3px;
-    border-style:dashed;
-    padding: 1px;
+  margin: 15px;
+  border: 3px;
+  border-style: dashed;
+  padding: 1px;
 }
 
 fieldset li {
-    list-style:none;
+  list-style: none;
 }
 
 /*
@@ -283,11 +286,11 @@ form#create-user div.picture {
 /* Puesta en Escena */
 
 img.perfil {
-    max-width:200px;
+  max-width: 200px;
 }
 
 .av-media {
-    max-height:200px;
+  max-height: 200px;
 }
 
 img.av-media {
