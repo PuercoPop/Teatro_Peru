@@ -302,6 +302,7 @@ def validate_ticket(request):
     if TicketForm.is_valid():
         ticket = TicketForm.save(commit=False)
     else:
+        # TODO: Return an error message to display
         return HttpResponseBadRequest()
 
     return render(
@@ -311,21 +312,23 @@ def validate_ticket(request):
         )
 
 
+@require_POST
 def validate_cast(request):
-    if request.POST:
-        elencoForm = forms.Elenco_val(
-                {
-                    'nombre': request.POST['nombre'],
-                    'posicion': request.POST['posicion']
-                })
-        if elencoForm.is_valid():
-            q = {
-                    'nombre': request.POST['nombre'],
-                    'posicion': request.POST['posicion']
-                }
-            html_str = render_to_string(
-                    'show_elenco.html',
-                    {'m_elenco': q}
-                    )
-            return HttpResponse(html_str)
-    return HttpResponse('No Parameters')
+    """
+    TODO: Rework name/lastname situation
+    """
+    CastForm = forms.CastMemberForm({
+            'name': request.POST.get('name', None),
+            'role': request.POST.get('role', None),
+            'lastname': request.POST.get('lastname', "")
+            })
+    if CastForm.is_valid():
+        cast_member = CastForm.save(commit=False)
+    else:
+        return HttpResponseBadRequest()
+
+    return render(
+        request,
+        'teatro_peru/show_elenco.html',
+        {'m_elenco': cast_member},
+        )

@@ -149,12 +149,12 @@ class CastMember(models.Model):
             verbose_name = u'Celular',
             )
     reviews = models.ManyToManyField('Review', blank=True)
-    role = models.CharField( max_length = 30)
+    role = models.CharField(max_length=30)
     rating = models.OneToOneField('Rating')
     profile = models.ForeignKey('AVField',
             blank=True,
             null=True,
-            related_name = 'CastMember_profile'
+            related_name = 'CastMember_profile',
             )
     media = models.ManyToManyField(
         'AVField',

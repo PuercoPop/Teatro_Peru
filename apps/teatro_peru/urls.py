@@ -54,5 +54,8 @@ urlpatterns = patterns(
         views.validate_ticket,
         name="validate_ticket",
         ),
-    url(r'^validar_elenco/$', views.validate_cast),
+    url(r'^validar_elenco/$',
+        views.validate_cast,
+        name="validate_cast_member",
+        ),
     )

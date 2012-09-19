@@ -28,13 +28,15 @@ $(document).ready(function() {
 	    showOn: "both",
     });
 
+    /* Validate Ticket
+     */
     $('#agregar-entrada').click(function(){
 	    $.ajax({
 	        headers: {"X-CSRFToken": getCookie("csrftoken") },
 	        url:"/validar_entrada/",
 	        type: "POST",
-	        data: { 'entrada': $('#entrada-tipo').val(),
-	                'costo': $('#entrada-costo').val() },
+	        data: { 'name': $('#entrada-tipo').val(),
+	                'cost': $('#entrada-costo').val() },
 	        success: function(data){
 		        $('#entradas-info').append(data);
 		        $('input.entrada-item').click(function(){
@@ -44,13 +46,15 @@ $(document).ready(function() {
 	    });
     });
 
+    /*  Validate Cast Member
+     */
     $('#agregar-elenco').click(function(){
 	    $.ajax({
 	        headers: {"X-CSRFToken": getCookie("csrftoken")},
 	        url:"/validar_elenco/",
 	        type: "POST",
-	        data: { 'posicion': $('#elenco-posicion').val(),
-		            'nombre': $('#elenco-nombre').val(),
+	        data: { 'role': $('#elenco-posicion').val(),
+		            'name': $('#elenco-nombre').val(),
 		          },
 	        success: function(data){
 		        $('#elenco-info').append(data);
